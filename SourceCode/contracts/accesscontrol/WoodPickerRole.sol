@@ -21,7 +21,7 @@ contract WoodPickerRole {
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyWoodPicker() {
-    require(isWoodPicker(msg.sender));
+    require(isWoodPicker(msg.sender),"Sender must be WoodPicker");
     _;
   }
 

@@ -21,7 +21,7 @@ contract CraftsManRole {
 
   // Define a modifier that checks to see if msg.sender has the appropriate role
   modifier onlyCraftsMan() {
-    require(isCraftsMan(msg.sender));
+    require(isCraftsMan(msg.sender),"Sender must be CradtsMan");
     _;
   }
 
