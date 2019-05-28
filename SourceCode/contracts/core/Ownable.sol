@@ -20,7 +20,7 @@ contract Ownable {
 
     /// Define a function modifier 'onlyOwner'
     modifier onlyOwner() {
-        require(isOwner());
+        require(isOwner(),"Only Owner is allowed to perform this function");
         _;
     }
 
@@ -42,7 +42,7 @@ contract Ownable {
 
     /// Define an internal function to transfer ownership
     function _transferOwnership(address newOwner) internal {
-        require(newOwner != address(0));
+        require(newOwner != address(0),"New owner can not be set to blank");
         emit TransferOwnership(origOwner, newOwner);
         origOwner = newOwner;
     }

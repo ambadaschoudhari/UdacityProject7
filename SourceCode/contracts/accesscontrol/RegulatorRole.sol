@@ -30,8 +30,8 @@ contract RegulatorRole {
     return regulators.has(account);
   }
 
-  // Define a function 'addRegulator' that adds this role
-  function addRegulator(address account) public onlyRegulator {
+  // Define a function 'addRegulator' that adds this role -- Any role can add regulator
+  function addRegulator(address account) public { // onlyRegulator {
     _addRegulator(account);
   }
 

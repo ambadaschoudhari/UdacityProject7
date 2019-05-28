@@ -29,7 +29,7 @@ contract ConsumerRole {
   }
 
   // Define a function 'addConsumer' that adds this role
-  function addConsumer(address account) public onlyConsumer {
+  function addConsumer(address account) public { // Any role can be a customer onlyConsumer {
      _addConsumer(account);
   }
 

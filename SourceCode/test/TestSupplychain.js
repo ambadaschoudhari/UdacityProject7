@@ -16,10 +16,10 @@ contract('SupplyChain', function(accounts) {
     const productNotes = "Best beans for Espresso"
    // const productPrice = web3.toWei(1, "ether")
     var itemState = 0
-    const regulatorID = accounts[0]
-    const craftsmanID = accounts[0]
-    const retailerID = accounts[1]
-    const consumerID = accounts[0]
+    const regulatorID = accounts[2]
+    const craftsmanID = accounts[3]
+    const retailerID = accounts[4]
+    const consumerID = accounts[5]
     const emptyAddress = '0x00000000000000000000000000000000000000'
 
     ///Available Accounts
@@ -36,12 +36,12 @@ contract('SupplyChain', function(accounts) {
     ///(9)  
 
     console.log("ganache-cli accounts used here...")
-    console.log("Contract Owner: accounts[0] ", accounts[0])
-    console.log("originWoodPickerID: accounts[0] ", accounts[0])
-    console.log("regulatorID: accounts[0] ", accounts[0])
-    console.log("craftsmanID: accounts[0] ", accounts[0])
-    console.log("Retailer: accounts[0] ", accounts[1])
-    console.log("Consumer: accounts[1] ", accounts[0])
+    console.log("Contract Owner: accounts[0] ", originWoodPickerID)
+    console.log("originWoodPickerID: accounts[0] ", originWoodPickerID)
+    console.log("regulatorID: accounts[0] ", regulatorID)
+    console.log("craftsmanID: accounts[0] ", craftsmanID)
+    console.log("Retailer: accounts[0] ", retailerID)
+    console.log("Consumer: accounts[1] ", consumerID)
 
     // 1st Test
     it("Testing smart contract function tagItem() that allows a woodpicker to Tag wood", async() => {
@@ -51,18 +51,16 @@ contract('SupplyChain', function(accounts) {
         var eventEmitted = false
         
         // Watch the emitted event Tagged()
-    //    SupplyChain.events.MyEvent({
-    //    },(error, event) => {console.log("Event Emitted : "+ event);eventEmitted = true});
-
-       // var event = supplyChain.evntTagged()
+        // var event = supplyChain.evntTagged()
    
-        // Mark an item as Harvested by calling function harvestItem()
+        // Mark an item as tagged by calling function TagItem()
+        await supplyChain.addWoodPicker(originWoodPickerID, {from: originWoodPickerID});//, );
         await supplyChain.tagItem(upc, originWoodPickerID, 
                                   originWoodLandName, 
                                   originWoodLandInformation, 
                                   originWoodLandLatitude, 
                                   originWoodLandLongitude, 
-                                  productNotes)
+                                  productNotes,regulatorID)
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
@@ -72,16 +70,15 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[0], sku, 'Error: Invalid item SKU')
         assert.equal(resultBufferOne[1], upc, 'Error: Invalid item UPC')
         assert.equal(resultBufferOne[2], ownerID, 'Error: Missing or Invalid ownerID')
-        assert.equal(resultBufferOne[3], originWoodPickerID, 'Error: Missing or Invalid originFarmerID')
-        assert.equal(resultBufferOne[4], originWoodLandName, 'Error: Missing or Invalid originFarmName')
-        assert.equal(resultBufferOne[5], originWoodLandInformation, 'Error: Missing or Invalid originFarmInformation')
-        assert.equal(resultBufferOne[6], originWoodLandLatitude, 'Error: Missing or Invalid originFarmLatitude')
-        assert.equal(resultBufferOne[7], originWoodLandLongitude, 'Error: Missing or Invalid originFarmLongitude')
+        assert.equal(resultBufferOne[3], originWoodPickerID, 'Error: Missing or Invalid originWoodPickerID')
+        assert.equal(resultBufferOne[4], originWoodLandName, 'Error: Missing or Invalid originWoodLandName')
+        assert.equal(resultBufferOne[5], originWoodLandInformation, 'Error: Missing or Invalid originWoodLandInformation')
+        assert.equal(resultBufferOne[6], originWoodLandLatitude, 'Error: Missing or Invalid originWoodLandLatitude')
+        assert.equal(resultBufferOne[7], originWoodLandLongitude, 'Error: Missing or Invalid originWoodLandLongitude')
         assert.equal(resultBufferTwo[5], 0, 'Error: Invalid item State')
       //  assert.equal(eventEmitted, true, 'Invalid event emitted')        
     })    
 
-  
     // 2nd Test
     it("Testing smart contract function approveItem to validate approveItem", async() => {
         const supplyChain = await SupplyChain.deployed()
@@ -91,10 +88,14 @@ contract('SupplyChain', function(accounts) {
         
         // Watch the emitted event Processed()
         //--------------code to be added-----------------
-
+       // var event = supplyChain.evntApproved()
+        
         // Mark an item as approved by calling function approveItem()
-        await supplyChain.approveItem(upc)
-
+        await supplyChain.addRegulator(regulatorID, {from: regulatorID});
+        await supplyChain.approveItem(upc,craftsmanID,{from: regulatorID})
+       // await event.watch((err, res) => {
+       //     eventEmitted = true
+       // })
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
         const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc)
@@ -104,10 +105,10 @@ contract('SupplyChain', function(accounts) {
         assert.equal(resultBufferOne[1], upc, 'Error: Invalid item UPC')
         assert.equal(resultBufferTwo[6], regulatorID, 'Error: Regulator ID is not matching')
         assert.equal(resultBufferTwo[5], 1, 'Error: Invalid item State')
-      //  assert.equal(eventEmitted, true, 'Invalid event emitted')  
+       // assert.equal(eventEmitted, true, 'Invalid event emitted')  
       
     })    
- 
+
     // 3rd Test
     it("Testing smart contract function CraftItem() that allows craftsman to create craft from wood", async() => {
         const supplyChain = await SupplyChain.deployed()
@@ -119,7 +120,8 @@ contract('SupplyChain', function(accounts) {
          //--------------code to be added-----------------       
 
         // Mark an item as crafted by calling function packItem()
-        await supplyChain.craftItem(upc,1)
+        await supplyChain.addCraftsMan(craftsmanID, {from:craftsmanID});
+        await supplyChain.craftItem(upc,1,retailerID,{from:craftsmanID})
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
@@ -128,14 +130,14 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         assert.equal(resultBufferOne[0], sku, 'Error: Invalid item SKU')
         assert.equal(resultBufferOne[1], upc, 'Error: Invalid item UPC')
-        assert.equal(resultBufferTwo[6], craftsmanID, 'Error: craftsmanID ID is not matching')
+        assert.equal(resultBufferTwo[7], craftsmanID, 'Error: craftsmanID ID is not matching')
         assert.equal(resultBufferTwo[5], 2, 'Error: Invalid item State')
       //  assert.equal(eventEmitted, true, 'Invalid event emitted')         
 
      })    
 
     // 4th Test
-    it("Testing smart contract function CraftItem() that allows customer to buy item and pay retailer", async() => {
+    it("Testing smart contract function buyItem() that allows customer to buy item and pay retailer", async() => {
         const supplyChain = await SupplyChain.deployed()
         
         // Declare and Initialize a variable for event
@@ -145,7 +147,9 @@ contract('SupplyChain', function(accounts) {
          //--------------code to be added-----------------          
 
         // Mark an item as sold by calling function buyItem()
-        await supplyChain.buyItem(upc,{from: accounts[1], value: price})    
+        await supplyChain.addRetailer(retailerID, {from: retailerID});
+        await supplyChain.addConsumer(consumerID, {from: consumerID});
+        await supplyChain.buyItem(upc,consumerID,{from: retailerID, value: price})    
 
         // Retrieve the just now saved item from blockchain by calling function fetchItem()
         const resultBufferOne = await supplyChain.fetchItemBufferOne.call(upc)
@@ -154,10 +158,11 @@ contract('SupplyChain', function(accounts) {
         // Verify the result set
         assert.equal(resultBufferOne[0], sku, 'Error: Invalid item SKU')
         assert.equal(resultBufferOne[1], upc, 'Error: Invalid item UPC')
-        assert.equal(resultBufferTwo[9], retailerID, 'Error: retailerID ID is not matching')
-       // assert.equal(resultBufferTwo[10], consumerID, 'Error: consumerID ID is not matching')        
+        assert.equal(resultBufferTwo[8], retailerID, 'Error: retailerID ID is not matching')
+        assert.equal(resultBufferTwo[9], consumerID, 'Error: consumerID ID is not matching')        
         assert.equal(resultBufferTwo[5], 3, 'Error: Invalid item State')          
-    })    
+    })   
+ /**/
  /*
     // 5th Test
     it("Testing smart contract function buyItem() that allows a distributor to buy coffee", async() => {

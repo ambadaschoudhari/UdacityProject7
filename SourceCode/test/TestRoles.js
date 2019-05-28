@@ -1,5 +1,6 @@
 // This script is designed to test the solidity smart contract - SuppyChain.sol -- and the various functions within
 // Declare a variable and assign the compiled smart contract artifact
+/*
 var WoodPickerRole = artifacts.require('WoodPickerRole')
 
 contract('WoodPickerRole', function(accounts) {
@@ -13,3 +14,4 @@ contract('WoodPickerRole', function(accounts) {
     assert.equal(iswoodpicker, true, 'Error: woodpicker role not set')
     })
 })
+*/

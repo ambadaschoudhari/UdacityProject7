@@ -29,11 +29,10 @@ contract RetailerRole {
         return retailers.has(account);
   }
 
-  // Define a function 'addRetailer' that adds this role
-  function addRetailer(address account) public onlyRetailer {
+  // Define a function 'addRetailer' that adds this role  -- Any role can add regulator
+  function addRetailer(address account) public {//onlyRetailer {
      _addRetailer(account);
   }
-
   // Define a function 'renounceRetailer' to renounce this role
   function renounceRetailer() public {
       _removeRetailer(msg.sender);

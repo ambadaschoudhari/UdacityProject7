@@ -30,8 +30,8 @@ contract CraftsManRole {
     return craftsmen.has(account);
   }
 
-  // Define a function 'addCraftsMan' that adds this role
-  function addCraftsMan(address account) public onlyCraftsMan {
+  // Define a function 'addCraftsMan' that adds this role  -- Any role can add craftsman
+  function addCraftsMan(address account) public { // onlyCraftsMan {
     _addCraftsMan(account);
   }
 

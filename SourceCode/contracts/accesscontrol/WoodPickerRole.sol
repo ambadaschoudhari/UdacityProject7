@@ -30,8 +30,8 @@ contract WoodPickerRole {
     return woodpickers.has(account);
   }
 
-  // Define a function 'addWoodPicker' that adds this role
-  function addWoodPicker(address account) public onlyWoodPicker {
+  // Define a function 'addWoodPicker' that adds this role - Anyone can add role
+  function addWoodPicker(address account) public {  //} onlyWoodPicker {
     _addWoodPicker(account);
   }
 
