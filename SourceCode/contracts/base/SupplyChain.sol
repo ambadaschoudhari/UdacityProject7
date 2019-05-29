@@ -140,7 +140,7 @@ contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, ConsumerRo
   }
 
  // Define a function 'tagItem' that allows a woodpicker to mark an item 'Tagged'
- function tagItem(uint32 _upc, address _originWoodPickerID,
+ function tagItem(uint _upc, address _originWoodPickerID,
                   string memory _originWoodLandName,
                   string memory _originWoodLandInformation,
                   string memory _originWoodLandLatitude,
@@ -149,19 +149,20 @@ contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, ConsumerRo
                   address _regulatorID
                 ) public onlyWoodPicker()  {
  // Add the new item as part of Wood Picked
+  uint32 upc32 = uint32(_upc);
   Itemowner = msg.sender;
   Item memory newItem = Item(sku,
-                             _upc,Itemowner,_originWoodPickerID,_originWoodLandName,
+                             upc32,Itemowner,_originWoodPickerID,_originWoodLandName,
                              _originWoodLandInformation,_originWoodLandLatitude,
                              _originWoodlandLongitude,sku,_productNotes,0,
                              State.Tagged,address(0),address(0),address(0),address(0));
-  items[_upc] = newItem;
+  items[upc32] = newItem;
   transferOwnership(_regulatorID);
  // Increment sku
   sku = sku + 1;
   upc = upc + 1;
  // Emit the appropriate event
-  emit evntTagged(_upc);
+  emit evntTagged(upc32);
   }
 
   // Define a function 'approveItem' that allows regulator to mark an item 'Approved'
