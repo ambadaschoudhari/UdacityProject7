@@ -85,7 +85,8 @@ App = {
         }
         // If no injected web3 instance is detected, fall back to Ganache
         else {
-            App.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545');
+            //App.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545');
+            App.web3Provider = new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/6a623622c9044e87b2bc5cc073dc25cd');
         }
 
         App.getMetaskAccountID();

@@ -25,7 +25,7 @@
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const infuraKey = "6a623622c9044e87b2bc5cc073dc25cd";
 const mnemonic = 'agree into sausage panel gauge bean blind relief surround night skirt soccer';
-
+//const mnemonic = 'agree into sausage panel gauge bean blind relief surround night skirt soccer';
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -46,7 +46,7 @@ module.exports = {
     rinkeby: {
     provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
     network_id: 4,       // Rinkeby's id
-    gas: 45000,        // Rinkeby has a lower block limit than mainnet
+    gas: 6000074,        // Rinkeby has a lower block limit than mainnet
     gasPrice: 10000000000,
   //  confirmations: 2,    // # of confs to wait between deployments. (default: 0)
   //  timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
