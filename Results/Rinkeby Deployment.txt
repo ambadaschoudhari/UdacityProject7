@@ -1,0 +1,130 @@
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-7\Part2\SourceCode> truffle migrate --reset --network rinkeby
+Compiling .\contracts\accesscontrol\ConsumerRole.sol...
+Compiling .\contracts\accesscontrol\CraftsManRole.sol...
+Compiling .\contracts\accesscontrol\RegulatorRole.sol...
+Compiling .\contracts\accesscontrol\RetailerRole.sol...
+Compiling .\contracts\accesscontrol\Roles.sol...
+Compiling .\contracts\accesscontrol\WoodPickerRole.sol...
+Compiling .\contracts\core\Ownable.sol...
+Writing artifacts to .\build\contracts
+
+⚠️  Important ⚠️
+If you're using an HDWalletProvider, it must be Web3 1.0 enabled or your migration will hang.
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'rinkeby-fork'
+> Network id:      4
+> Block gas limit: 7009458
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             2.96588958
+   > gas used:            269908
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00269908 ETH
+
+   -------------------------------------
+   > Total cost:          0.00269908 ETH
+
+
+2_deploy_contracts.js
+=====================
+[ '0x471180DC0Ba34871Db59cAAc0B95a6B2A12722EE',
+  '0x72be03D5e9F0714cF71A57Bc374A2022Ff63b470',
+  '0xd83f578AE47085b66dB900D40E52b8cE7082fC42',
+  '0xB277b83AbB31F8D170b7c7762bBee3769d80bEc1',
+  '0xd6E67E71A36a5bfeB06c5Da4b63639007FC68511',
+  '0xB0C1767BA61eB057F6708f7313824218D8a27843',
+  '0x49d19eE48b238Ac41127b5A3b2e2292d82F83071',
+  '0x4f9D7fAf543DC79fa15653795F6B9bBB7E8926Bd',
+  '0xa072bAB3339ea6152141e5a5ec39A441aBE46Fb4',
+  '0x0f4Ab22753c879CE924a40460b61690D350B14c5' ]
+
+   Deploying 'SupplyChain'
+   -----------------------
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             2.90738278
+   > gas used:            5823646
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.05823646 ETH
+
+   -------------------------------------
+   > Total cost:          0.05823646 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.06093554 ETH
+
+⚠️  Important ⚠️
+If you're using an HDWalletProvider, it must be Web3 1.0 enabled or your migration will hang.
+
+
+Starting migrations...
+======================
+> Network name:    'rinkeby'
+> Network id:      4
+> Block gas limit: 7004710
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > transaction hash:    0x7e09d33c67ff6537ccb7e416aabd4df028afcb3fb7606193a96a61ad350d660c
+   > Blocks: 0            Seconds: 6
+   > contract address:    0x8B7dB8b78612AB9Db31abBeAa70B8f32BE70A332
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             2.96573958
+   > gas used:            284908
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00284908 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00284908 ETH
+
+
+2_deploy_contracts.js
+=====================
+[ '0x66Fc100dD6b011C050F1E17625184a5983523E4F' ]
+
+   Deploying 'SupplyChain'
+   -----------------------
+   > transaction hash:    0x8b209489761b8f148ac4885641d7e2feaab4c6a47c964114629f1b16942e45e1
+   > Blocks: 1            Seconds: 21
+   > contract address:    0x65f6e720f7aC1C19757Cb0BBF55291243a7e46E6
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             2.90603278
+   > gas used:            5928646
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.05928646 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.05928646 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.06213554 ETH
+ 
+
