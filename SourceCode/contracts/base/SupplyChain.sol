@@ -9,8 +9,6 @@ import "../core/Ownable.sol";
 // Define a contract 'Supplychain'
 contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, ConsumerRole,
                         RetailerRole, Ownable{
-//contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, RetailerRole,
-//                        ConsumerRole{
 
   // Define 'owner'
   address payable Itemowner;
@@ -127,9 +125,16 @@ contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, ConsumerRo
   // and set 'sku' to 1
   // and set 'upc' to 1
   constructor() public payable {
+    addWoodPicker(msg.sender);
+    addRegulator(msg.sender);
+    addCraftsMan(msg.sender);
+    addRetailer(msg.sender);
+    addConsumer(msg.sender);
+
    Itemowner = msg.sender;
    sku = 1;
    upc = 1;
+
   }
 
   // Define a function 'kill' if required
@@ -158,6 +163,7 @@ contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, ConsumerRo
                              State.Tagged,address(0),address(0),address(0),address(0));
   items[upc32] = newItem;
   transferOwnership(_regulatorID);
+  //transferOwnership(msg.sender);
  // Increment sku
   sku = sku + 1;
   upc = upc + 1;
@@ -180,6 +186,7 @@ contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, ConsumerRo
    items[_upc] = taggedItem;
    Itemowner = msg.sender;
    transferOwnership(_craftsmanID);
+   //transferOwnership(msg.sender);
  // Emit the appropriate event
    emit evntApproved(_upc);
   }
@@ -202,6 +209,7 @@ contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, ConsumerRo
    items[_upc] = approvedItem;
    Itemowner = msg.sender;
    transferOwnership(_retailerID);
+   //transferOwnership(msg.sender);
  // Emit the appropriate event
    emit evntCrafted(_upc);
 }
@@ -227,6 +235,7 @@ contract SupplyChain is WoodPickerRole, RegulatorRole, CraftsManRole, ConsumerRo
   craftedItem.itemState = State.Sold;
   items[_upc] = craftedItem;
   transferOwnership(_customer);
+  //transferOwnership(msg.sender);
   // emit the appropriate event
   emit evntSold(_upc);
   }

@@ -14,7 +14,7 @@ library Roles {
    */
   function add(Role storage role, address account) internal {
     require(account != address(0),"If this is not first account");
-    require(!has(role, account),"Account must have a role");
+   // require(!has(role, account),"Account must have a role");
     role.bearer[account] = true;
   }
 
@@ -23,7 +23,7 @@ library Roles {
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0),"If this is not first account");
-    require(has(role, account),"Account must have a role");
+   // require(has(role, account),"Account must have a role");
 
     role.bearer[account] = false;
   }
@@ -37,7 +37,7 @@ library Roles {
     view
     returns (bool)
   {
-    require(account != address(0),"Account must have a role");
+   // require(account != address(0),"Account must have a role");
     return role.bearer[account];
   }
 }

@@ -122,6 +122,7 @@ App = {
             App.fetchItemBufferOne();
             App.fetchItemBufferTwo();
             App.fetchEvents();
+            //await
 
         });
 
@@ -153,6 +154,9 @@ App = {
             case 4:
                 return await App.buyItem(event);
                 break;
+            case 5:
+                return await App.assignRoles(event);
+                break;
             case 9:
                 return await App.fetchItemBufferOne(event);
                 break;
@@ -175,7 +179,8 @@ App = {
                 App.originWoodLandLatitude, 
                 App.originWoodLandLongitude, 
                 App.productNotes 
-               ,App.iregulatorID
+               //,App.iregulatorID
+               ,App.metamaskAccountID
             );
         }).then(function(result) {
             $("#ftc-item").text(result);
@@ -190,7 +195,8 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            return instance.approveItem(App.upc,App.icraftsmanID, {from: App.metamaskAccountID});
+            //return instance.approveItem(App.upc,App.icraftsmanID, {from: App.metamaskAccountID});
+            return instance.approveItem(App.upc,App.metamaskAccountID, {from: App.metamaskAccountID});
         }).then(function(result) {
             $("#ftc-item").text(result);
             console.log('approveItem',result);
@@ -205,10 +211,11 @@ App = {
         const productPrice = web3.toWei(.25, "ether");
         console.log('productPrice',productPrice);
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            return instance.craftItem(App.upc, App.productPrice,App.iretailerID, {from: App.metamaskAccountID});
+            //return instance.craftItem(App.upc, App.productPrice,App.iretailerID, {from: App.metamaskAccountID});
+            return instance.craftItem(App.upc, App.productPrice,App.metamaskAccountID, {from: App.metamaskAccountID});
         }).then(function(result) {
             $("#ftc-item").text(result);
-            console.log('packItem',result);
+            console.log('craftItem',result);
         }).catch(function(err) {
             console.log(err.message);
         });
@@ -220,7 +227,8 @@ App = {
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
             const walletValue = web3.toWei(.5, "ether");
-            return instance.buyItem(App.upc,App.iconsumerID, {from: App.metamaskAccountID, value: walletValue});
+            //return instance.buyItem(App.upc,App.iconsumerID, {from: App.metamaskAccountID, value: walletValue});
+            return instance.buyItem(App.upc,App.metamaskAccountID, {from: App.metamaskAccountID, value: walletValue});
         }).then(function(result) {
             $("#ftc-item").text(result);
             console.log('buyItem',result);
@@ -229,6 +237,55 @@ App = {
         });
     },
 
+    assignRoles: function (event) {
+        event.preventDefault();
+        var processId = parseInt($(event.target).data('id'));
+        App.contracts.SupplyChain.deployed().then(function (instance) {
+            const walletValue = web3.toWei(.5, "ether");
+            return instance.addWoodPicker(App.metamaskAccountID, { from: App.metamaskAccountID })
+        }).then(function (result) {
+            $("#ftc-item").text(result);
+            console.log('assignRole addWoodPicker ', result);
+        }).catch(function (err) {
+            console.log(err.message);
+        });
+        App.contracts.SupplyChain.deployed().then(function (instance) {
+            const walletValue = web3.toWei(.5, "ether");
+            return instance.addRegulator(App.metamaskAccountID, {from: App.metamaskAccountID})
+        }).then(function (result) {
+            $("#ftc-item").text(result);
+            console.log('assignRole addRegulator ', result);
+        }).catch(function (err) {
+            console.log(err.message);
+        });
+        App.contracts.SupplyChain.deployed().then(function (instance) {
+            const walletValue = web3.toWei(.5, "ether");
+            return instance.addCraftsMan(App.metamaskAccountID, {from: App.metamaskAccountID})
+        }).then(function (result) {
+            $("#ftc-item").text(result);
+            console.log('assignRole addCraftsMan ', result);
+        }).catch(function (err) {
+            console.log(err.message);
+        });
+        App.contracts.SupplyChain.deployed().then(function (instance) {
+            const walletValue = web3.toWei(.5, "ether");
+            return instance.addRetailer(App.metamaskAccountID, {from: App.metamaskAccountID})
+        }).then(function (result) {
+            $("#ftc-item").text(result);
+            console.log('assignRole addRetailer ', result);
+        }).catch(function (err) {
+            console.log(err.message);
+        });  
+        App.contracts.SupplyChain.deployed().then(function (instance) {
+            const walletValue = web3.toWei(.5, "ether");
+            return instance.addConsumer(App.metamaskAccountID, {from: App.metamaskAccountID})
+        }).then(function (result) {
+            $("#ftc-item").text(result);
+            console.log('assignRole addConsumer ', result);
+        }).catch(function (err) {
+            console.log(err.message);
+        });                     
+    },
 
     fetchItemBufferOne: function () {
     ///   event.preventDefault();

@@ -37,6 +37,7 @@ contract Ownable {
 
     /// Define a public function to transfer ownership
     function transferOwnership(address newOwner) public onlyOwner {
+    //function transferOwnership(address newOwner) public {
         _transferOwnership(newOwner);
     }
 
